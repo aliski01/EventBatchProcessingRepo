@@ -25,6 +25,9 @@ public class EventReader implements ItemReader<Event> {
 	private static final Logger log = LoggerFactory.getLogger(EventReader.class);
 
 	RestTemplate restTemplate = new RestTemplate();
+	
+	/* @Value("${chunk_size}") private int chunkSize; */
+	 
 
 	@Autowired
 	private HttpEntity<String> entity;
@@ -33,9 +36,8 @@ public class EventReader implements ItemReader<Event> {
 	ArrayList<Event> eventList = new ArrayList<Event>();
 	int total = 0;
 	int page = 0;
-	int perPage = 1000;
-	Root eventData = new Root();
-	//ArrayList<Event> eventList;
+	int perPage = 10;
+	Root eventData = new Root();	
 
 	@Override
 	public Event read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
@@ -54,11 +56,9 @@ public class EventReader implements ItemReader<Event> {
 			 */	
 		}
 
-		Event nextEvent = null;
-
 		if(nextEventIndex >= eventList.size()) 
 		{
-			total =  eventData.getMeta().total  - (page * perPage);			
+			total = /* eventData.getMeta().total */ 20 - (page * perPage);			
 			nextEventIndex = 0;
 
 			if(total>0) {
@@ -73,15 +73,14 @@ public class EventReader implements ItemReader<Event> {
 
 		}
 
-		nextEvent = eventList.get(nextEventIndex);
+		Event nextEvent = eventList.get(nextEventIndex);
 		log.debug("eventIndex: "+ nextEventIndex +" EventId:: "+eventList.get(nextEventIndex).getId());
 		nextEventIndex++;
-		//log.debug("Found Event: {}" + nextEvent);
 		return nextEvent;
 		
 	}
 
-	private String setUriBuilder(int page, int perPage) {
+	public String setUriBuilder(int page, int perPage) {
 		String baseUrl = "https://api.seatgeek.com/2/events";
 		String clientId = "MjU4Mzc5MzJ8MTY0NTY5MTEwOC42NTQxODA4";
 		String clientSecret = "75e407df985dad4c85127f6d3763e7ccf0e981125b9a699f60ee41f34125c4ba";
@@ -90,14 +89,14 @@ public class EventReader implements ItemReader<Event> {
 
 		builder.queryParam("per_page", perPage).queryParam("page", page).queryParam("client_id", clientId)
 		.queryParam("client_secret", clientSecret);
-
+		log.info(builder.toUriString());
 		return builder.toUriString();
 	}
 
-	private Root fetchEventDataFromRestApi(String builder) {
+	public Root fetchEventDataFromRestApi(String builder) {
 
 		ResponseEntity<Root> response = restTemplate.exchange(builder, HttpMethod.GET, entity, Root.class);
-
+		log.info("fetching..");
 		return response.getBody();
 	}
 

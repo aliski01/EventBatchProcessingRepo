@@ -1,9 +1,14 @@
 package com.dcsg.eventBatch.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Performer {
-	 public String type;
+public class Performer implements Serializable{
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5467177544010954615L;
+	public String type;
 	    public String name;
 	    public String image;
 	    public int id;

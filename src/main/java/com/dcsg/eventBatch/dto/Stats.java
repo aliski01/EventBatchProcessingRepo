@@ -1,7 +1,12 @@
 package com.dcsg.eventBatch.dto;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Stats {
+public class Stats implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -821032114176095553L;
 	public int event_count;
     public int listing_count;
     public int average_price;

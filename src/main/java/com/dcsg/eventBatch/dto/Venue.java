@@ -1,8 +1,13 @@
 package com.dcsg.eventBatch.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Venue {
+public class Venue implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4412278394229237804L;
 	public String state;
     public String name_v2;
     public String postal_code;

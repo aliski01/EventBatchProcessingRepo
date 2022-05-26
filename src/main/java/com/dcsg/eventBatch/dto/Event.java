@@ -1,12 +1,18 @@
 package com.dcsg.eventBatch.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 
-public class Event {
+public class Event implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 513592718583737857L;
 	private String type;
-    private int id;
+    private String id;
     private Date datetime_utc;
     private Venue venue;
     private boolean datetime_tbd;
@@ -35,16 +41,64 @@ public class Event {
     private Object enddatetime_utc;
     private ArrayList<Object> themes;
     private ArrayList<Object> domain_information;
+    
+    
+    
+	public Event(String type, String id, Date datetime_utc, Venue venue, boolean datetime_tbd,
+			ArrayList<Performer> performers, boolean is_open, ArrayList<Object> links, Date datetime_local,
+			boolean time_tbd, String short_title, Date visible_until_utc, Stats stats, ArrayList<Taxonomy> taxonomies,
+			String url, double score, Date announce_date, Date created_at, boolean date_tbd, String title,
+			double popularity, String description, String status, Object access_method, Object event_promotion,
+			Announcements announcements, boolean conditional, Object enddatetime_utc, ArrayList<Object> themes,
+			ArrayList<Object> domain_information) {
+		super();
+		this.type = type;
+		this.id = id;
+		this.datetime_utc = datetime_utc;
+		this.venue = venue;
+		this.datetime_tbd = datetime_tbd;
+		this.performers = performers;
+		this.is_open = is_open;
+		this.links = links;
+		this.datetime_local = datetime_local;
+		this.time_tbd = time_tbd;
+		this.short_title = short_title;
+		this.visible_until_utc = visible_until_utc;
+		this.stats = stats;
+		this.taxonomies = taxonomies;
+		this.url = url;
+		this.score = score;
+		this.announce_date = announce_date;
+		this.created_at = created_at;
+		this.date_tbd = date_tbd;
+		this.title = title;
+		this.popularity = popularity;
+		this.description = description;
+		this.status = status;
+		this.access_method = access_method;
+		this.event_promotion = event_promotion;
+		this.announcements = announcements;
+		this.conditional = conditional;
+		this.enddatetime_utc = enddatetime_utc;
+		this.themes = themes;
+		this.domain_information = domain_information;
+	}
+	
+	public Event() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getType() {
 		return type;
 	}
 	public void setType(String type) {
 		this.type = type;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public Date getDatetime_utc() {
@@ -215,5 +269,20 @@ public class Event {
 	public void setDomain_information(ArrayList<Object> domain_information) {
 		this.domain_information = domain_information;
 	}
+
+	@Override
+	public String toString() {
+		return "Event [type=" + type + ", id=" + id + ", datetime_utc=" + datetime_utc + ", venue=" + venue
+				+ ", datetime_tbd=" + datetime_tbd + ", performers=" + performers + ", is_open=" + is_open + ", links="
+				+ links + ", datetime_local=" + datetime_local + ", time_tbd=" + time_tbd + ", short_title="
+				+ short_title + ", visible_until_utc=" + visible_until_utc + ", stats=" + stats + ", taxonomies="
+				+ taxonomies + ", url=" + url + ", score=" + score + ", announce_date=" + announce_date
+				+ ", created_at=" + created_at + ", date_tbd=" + date_tbd + ", title=" + title + ", popularity="
+				+ popularity + ", description=" + description + ", status=" + status + ", access_method="
+				+ access_method + ", event_promotion=" + event_promotion + ", announcements=" + announcements
+				+ ", conditional=" + conditional + ", enddatetime_utc=" + enddatetime_utc + ", themes=" + themes
+				+ ", domain_information=" + domain_information + "]";
+	}
     
 }
+
